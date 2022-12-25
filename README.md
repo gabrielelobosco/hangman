@@ -1,5 +1,5 @@
 
-# HangedMan
+# HangMan
 
 A personal Web-Project of the HangMan game developed during my freetime.
 
