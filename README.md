@@ -25,6 +25,7 @@ A personal Web-Project of the HangMan game developed during my freetime.
 - Add more features like:
 
     - A leaderboard
+    - Use of KeyBoard
     - TBD
 
 
