@@ -1,18 +1,19 @@
 <html>
     <head>
-        <title>The Hanged Galilei</title>
+        <title>Hanged Galilei</title>
         <meta name="viewport" content="width=device-width, user-scalable=no, inital-scale=1">
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/site.webmanifest">
     </head>
-    <body>
-        <h1>- The Hanged Galilei -</h1>
+    <body onload="res_biscotto()">
+        <h1>Hanged Galilei</h1>
 
             <div class="b-container">
-                <button onclick="location.href='/game.php?difficulty=normal'">Normale</button>
-                <button onclick="location.href='/game.php?difficulty=scientific'">Scientifico</button>
+                <button onclick="location.href='/game.php?difficulty=easy'">Easy</button>
+                <button onclick="location.href='/game.php?difficulty=normal'">Normal</button>
+                <button onclick="location.href='/game.php?difficulty=hard'">Hard</button>
             </div>
     
     </body>
@@ -59,6 +60,20 @@
         border-radius: 0.3rem;
         border: 3px solid black;
     }
+
+    @media screen and (max-width: 768px) {
+    .b-container {
+        padding-top: 27rem;
+    }
+    button {
+        font-size: 1rem;
+        width: 6.5rem;
+    }
+    html {
+        background-size: 55rem;
+    }
+}
+
     button:hover {
         animation-name: b-change;
         animation-iteration-count: infinite;
@@ -78,10 +93,19 @@
         to {background-color: black; color: white; transform: translateY(-10px);}
     }
 
-        @keyframes glitch {
+    @keyframes glitch {
         0% {}
         5% {color: red; transform: translateX(-1rem)}
         7% {}
         10% {color: red; transform: translateX(2rem)}
     }
 </style>
+
+<script>
+function res_biscotto() {
+    document.cookie = "points=0";
+}
+function biscotto() {
+    console.log(document.cookie);
+}
+</script>

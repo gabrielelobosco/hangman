@@ -7,10 +7,10 @@ A personal Web-Project of the HangMan game developed during my freetime.
 [hangedgalilei.ga](http://hangedgalilei.ga/)
 ## _Features_
 
-- Two different difficulties
+- Three different difficulties
 - Easy to understand
 - Simple as the original on-paper HangMan game
-- Enjoiable from all platforms (web)
+- Enjoiable from all platforms simply using a browser
 
 
 ## _License_
@@ -21,11 +21,11 @@ A personal Web-Project of the HangMan game developed during my freetime.
 ## Roadmap
 
 - Additional browser support
-- Add more words
+- Fix words that are no-sense
+- Fix a bug that allow user to still play using keyboard after announcer appear
 - Add more features like:
 
     - A leaderboard
-    - Use of KeyBoard
     - TBD
 
 
@@ -40,3 +40,8 @@ A personal Web-Project of the HangMan game developed during my freetime.
 ## Feedback
 
 If you want leave me a feedback using my github repository page
+
+## Changelog May/2023
+- More words are now available - 1k easy, 16k normal, 40k difficult
+- You can now also use keyboard
+- Words are no more in source code, they are now in three different txt files
