@@ -1,0 +1,111 @@
+<html>
+    <head>
+        <title>Hanged Galilei</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, inital-scale=1">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+    </head>
+    <body onload="res_biscotto()">
+        <h1>Hanged Galilei</h1>
+
+            <div class="b-container">
+                <button onclick="location.href='/game.html?difficulty=easy'">Easy</button>
+                <button onclick="location.href='/game.html?difficulty=normal'">Normal</button>
+                <button onclick="location.href='/game.html?difficulty=hard'">Hard</button>
+            </div>
+    
+    </body>
+</html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+
+    html {
+        background-image: url("https://helpx.adobe.com/content/dam/help/en/photoshop/how-to/create-animated-gif/jcr_content/main-pars/image_4389415/create-animated-gif_3a-v2.gif");
+        background-repeat: no-repeat;
+        background-size: 70rem;
+        background-position: center;
+        background-position-y: inherit;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    ::-webkit-scrollbar {
+        width: 0;
+    }
+    h1 {
+        font-family: 'Cinzel', serif;
+        text-align: center;
+        padding-top: 0.75em;
+        animation-name: glitch;
+        animation-duration: 5s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+
+    .b-container {
+        text-align: center;
+        padding-top: 32rem;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    button {
+        width: 10rem;
+        height: 4rem;
+        background-color: transparent;
+        font-family: 'Cinzel', serif;
+        font-weight: bold;
+        font-size: 1.25rem;
+        border-radius: 0.3rem;
+        border: 3px solid black;
+    }
+
+    @media screen and (max-width: 768px) {
+    .b-container {
+        padding-top: 27rem;
+    }
+    button {
+        font-size: 1rem;
+        width: 6.5rem;
+    }
+    html {
+        background-size: 55rem;
+    }
+}
+
+    button:hover {
+        animation-name: b-change;
+        animation-iteration-count: infinite;
+        animation-duration: 2s;
+        animation-direction: alternate;
+        animation-timing-function: linear;
+        cursor: pointer;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    @keyframes b-change {
+        from {}
+        to {background-color: black; color: white; transform: translateY(-10px);}
+    }
+
+    @keyframes glitch {
+        0% {}
+        5% {color: red; transform: translateX(-1rem)}
+        7% {}
+        10% {color: red; transform: translateX(2rem)}
+    }
+</style>
+
+<script>
+function res_biscotto() {
+    document.cookie = "points=0";
+}
+function biscotto() {
+    console.log(document.cookie);
+}
+</script>
