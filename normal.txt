@@ -3484,11 +3484,7 @@ dedotta
 dedotte
 dedotti
 dedotto
-defini
-deflui
-defluii
 deforma
-deforme
 deformi
 deformo
 defunta
@@ -3509,13 +3505,10 @@ degnava
 degnavi
 degnavo
 degne
-degnera
-degnero
 degni
 degnino
 degno
 degrada
-degradi
 degrado
 delega
 delegai
@@ -3528,7 +3521,6 @@ delira
 delirai
 deliri
 delirio
-deliro
 delitti
 delitto
 delizi
