@@ -12,7 +12,7 @@
         <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
 
         <!-- CSS -->
-        <link rel="stylesheet" src="style.css">
+        <link rel="stylesheet" href="style.css">
         
         <!-- Favicon  -->
 
@@ -59,6 +59,63 @@
             <div id="gamba2"></div>
         </div>
     </div>
+
+<script>
+/* WORD CHOOSE AND CONTAINER GENERATION */
+
+var t_r = 6;
+
+var url = new URL(window.location.href);
+var difficulty = url.searchParams.get("difficulty");
+
+var parole, count, rand, parola, lettere, lunghezza;
+
+if (difficulty === "easy")
+  parole = loadFile('easy.txt');
+else if (difficulty === "normal")
+  parole = loadFile('normal.txt');
+else
+  parole = loadFile('hard.txt');
+
+count = parole.length;
+rand = getRandomInt(0, count - 1);
+
+parola = parole[rand].toUpperCase();
+lettere = [];
+
+lunghezza = parola.length;
+
+for (var i = 0; i < lunghezza; i++) {
+  lettere[i] = parola.substr(i, 1);
+}
+
+var underlineContainer = document.createElement('div');
+underlineContainer.className = 'underline-container';
+
+for (var i = 0; i < lunghezza; i++) {
+  var underline = document.createElement('div');
+  underline.id = 'underline';
+  underlineContainer.appendChild(underline);
+}
+
+document.body.appendChild(underlineContainer);
+
+function loadFile(filename) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', filename, false);
+  xhr.send();
+
+  if (xhr.status === 200) {
+    return xhr.responseText.split('\n').filter(Boolean);
+  } else {
+    throw new Error('Failed to load file: ' + filename);
+  }
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+</script>
 
 <!-- Keyboard -->
 
@@ -168,10 +225,9 @@ window.addEventListener("keydown", function(e) { // When a key (on keyboard) is 
             document.getElementById("tentativi").innerHTML = "Hai commesso <span style='color:#df0505'>6</span> errori!" // Show errors
             d_biscotto(); // User loose so points are now "0"
         }
-    }}
-
-
-	});
+    }
+    }
+});
 
 /* ON-SCREEN KEYBOARD */
 
@@ -236,62 +292,7 @@ $('button').on('click', function(){
             d_biscotto();
         }
     }
-})
-
-/* WORD CHOOSE AND CONTAINER GENERATION */
-
-var t_r = 6;
-
-var url = new URL(window.location.href);
-var difficulty = url.searchParams.get("difficulty");
-
-var parole, count, rand, parola, lettere, lunghezza;
-
-if (difficulty === "easy")
-  parole = loadFile('easy.txt');
-else if (difficulty === "normal")
-  parole = loadFile('normal.txt');
-else
-  parole = loadFile('hard.txt');
-
-count = parole.length;
-rand = getRandomInt(0, count - 1);
-
-parola = parole[rand].toUpperCase();
-lettere = [];
-
-lunghezza = parola.length;
-
-for (var i = 0; i < lunghezza; i++) {
-  lettere[i] = parola.substr(i, 1);
-}
-
-var underlineContainer = document.createElement('div');
-underlineContainer.className = 'underline-container';
-
-for (var i = 0; i < lunghezza; i++) {
-  var underline = document.createElement('div');
-  underline.id = 'underline';
-  underlineContainer.appendChild(underline);
-}
-
-document.body.appendChild(underlineContainer);
-
-function loadFile(filename) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', filename, false);
-  xhr.send();
-
-  if (xhr.status === 200) {
-    return xhr.responseText.split('\n').filter(Boolean);
-  } else {
-    throw new Error('Failed to load file: ' + filename);
-  }
-}
-
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+});
 
 /* POINTS/STREAKS MANAGEMENT */
 
