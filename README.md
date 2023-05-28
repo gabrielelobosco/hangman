@@ -34,10 +34,10 @@ A personal Web-Project of the HangMan game developed during my freetime.
 ## Screenshots
 
 #### _-HomePage-_
-![image](https://user-images.githubusercontent.com/54267726/209469649-e9ad1e4e-5c68-4fd4-bcbf-e806b857ff94.png)
+![image](https://github.com/LobbyLobs/hangman/assets/54267726/3ce01667-066a-4b17-ae14-9f006158b30f)
 -
 #### _-Game Page-_
-![image](https://user-images.githubusercontent.com/54267726/209469840-a341dea8-eeab-45ee-a8c4-a3e0f4eb754f.png)
+![image](https://github.com/LobbyLobs/hangman/assets/54267726/11a509fc-1a57-4494-a810-d27b636d3453)
 
 ## Feedback
 
