@@ -1,10 +1,21 @@
 <html>
     <head>
+
+        <!-- Title&Meta -->
+
         <title>THG - The Game</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, inital-scale=1">
+        
+        <!-- JQuery and Resolve.js -->
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
-        <script>var t_r = 6; // Tentativi Rimasti</script>
-        <meta name="viewport" content="width=device-width, user-scalable=no, inital-scale=1">
+
+        <!-- CSS -->
+        <link rel="stylesheet" src="style.css">
+        
+        <!-- Favicon  -->
+
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -12,123 +23,104 @@
     </head>
 <body>
 
-<div id="announcer">
-    <p id="result"></p>
-    <br>
-    <p id="word"></p>
-    <br>
-    <p id="tentativi"></p>
-    <button id="r_button" onclick="location.reload();">CONTINUA!</button>
-    <button id="r_button" onclick="location.href='/index.php'">TORNA AL MENU'</button>
-</div>
+    <!-- Announcer -->
 
-<div id="punteggio">
-    <p id="show"></p>
-</div>
-
-<div class="container">
-    <div class="costruzione">
-        <div id="base"></div>
-        <div id="palo"></div>
-        <div id="base_u"></div>
-        <div id="palo_p"></div>
+    <div id="announcer">
+        <p id="result"></p>
+        <br>
+        <p id="word"></p>
+        <br>
+        <p id="tentativi"></p>
+        <button id="r_button" onclick="location.reload();">CONTINUA!</button>
+        <button id="r_button" onclick="location.href='/index.php'">TORNA AL MENU'</button>
     </div>
-    <div class="omino">
-        <div id="testa"></div>
-        <div id="corpo"></div>
-        <div id="braccia1"></div>
-        <div id="braccia2"></div>
-        <div id="gamba1"></div>
-        <div id="gamba2"></div>
+
+    <!-- Points Div -->
+
+    <div id="punteggio">
+        <p id="show"></p>
     </div>
-</div>
-<?
 
-$URL = $_SERVER['REQUEST_URI'];
+    <!-- HangMan drawing container -->
 
-if ($URL == "/game.php?difficulty=easy")
-    $parole = file('easy.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-else if ($URL == "/game.php?difficulty=normal")
-    $parole = file('normal.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-else
-    $parole = file('hard.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    <div class="container">
+        <div class="costruzione">
+            <div id="base"></div>
+            <div id="palo"></div>
+            <div id="base_u"></div>
+            <div id="palo_p"></div>
+        </div>
+        <div class="omino">
+            <div id="testa"></div>
+            <div id="corpo"></div>
+            <div id="braccia1"></div>
+            <div id="braccia2"></div>
+            <div id="gamba1"></div>
+            <div id="gamba2"></div>
+        </div>
+    </div>
 
-$count = count($parole);
-$rand = rand(0,$count-1);
-
-$parola = strtoupper($parole[$rand]);
-$lettere = array();
-
-$lenght = strlen($parola);
-
-for($i = 0; $i < $lenght; $i++) {
-    $lettere[$i] = substr($parola, $i, 1);
-}
-
-?><div class="underline-container"><?php
-
-for($i = 0; $i < $lenght; $i++) {
-    ?> 
-    <div id="underline"></div>
-    <?php
-}
-?>
-</div>
+<!-- Keyboard -->
 
 <form class="tastiera" id="input_form" method="post">
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="A">A</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="B">B</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="C">C</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="D">D</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="Q">Q</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="W">W</button>
     <button type="submit" name="tasto" id="tasto" class="neutral" value="E">E</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="R">R</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="T">T</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="Y">Y</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="U">U</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="I">I</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="O">O</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="P">P</button>
+    <div class="break"></div>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="A">A</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="S">S</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="D">D</button>
     <button type="submit" name="tasto" id="tasto" class="neutral" value="F">F</button>
     <button type="submit" name="tasto" id="tasto" class="neutral" value="G">G</button>
     <button type="submit" name="tasto" id="tasto" class="neutral" value="H">H</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="I">I</button>
-    <div class="break"></div>
     <button type="submit" name="tasto" id="tasto" class="neutral" value="J">J</button>
     <button type="submit" name="tasto" id="tasto" class="neutral" value="K">K</button>
     <button type="submit" name="tasto" id="tasto" class="neutral" value="L">L</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="M">M</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="N">N</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="O">O</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="P">P</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="Q">Q</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="R">R</button>
     <div class="break"></div>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="S">S</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="T">T</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="U">U</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="V">V</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="W">W</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="X">X</button>
-    <button type="submit" name="tasto" id="tasto" class="neutral" value="Y">Y</button>
     <button type="submit" name="tasto" id="tasto" class="neutral" value="Z">Z</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="X">X</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="C">C</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="V">V</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="B">B</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="N">N</button>
+    <button type="submit" name="tasto" id="tasto" class="neutral" value="M">M</button>
 </form>
 
-<script type="text/javascript">
+</body>
+</html>
 
-window.addEventListener("keydown", function(e) {
+<script>
+
+/* PHYSICAL KEYBOARD */
+
+window.addEventListener("keydown", function(e) { // When a key (on keyboard) is pressed
 		var key = `${e.key}`.toUpperCase();
         
-        event.preventDefault(); // EVITA IL REFRESH
-        var value = key; // Lettera cliccata da utente
+        e.preventDefault(); // Prevent refresh
+        var value = key; // Letter clicked
 
-        var element = document.querySelectorAll("button[value="+key+"]");
+        var element = document.querySelectorAll("button[value="+key+"]"); // Select on-screen button of that value
 
-        if (element[0].classList.contains('neutral') == true) {
+        if (element[0].classList.contains('neutral') == true) { // If it wasn't clicked yet
 
-        $(element).addClass('error'); // Modifica onclick
-        $(element).removeClass('neutral'); // Modifica onclick
+        $(element).addClass('error');
+        $(element).removeClass('neutral'); 
 
-        var parola = "<?echo $parola?>"; // Parola da trovare
-        var lunghezza = "<?echo $lenght?>"; // Lunghezza parola
-        const lettere = Array.from(parola); // Array di lettere
-        let posizioni = []; // Array posizioni lettere corrette
-        w = 0; // contatore lettere inserite correttamente
+        const lettere = Array.from(parola); // Letters array
+        let posizioni = []; // Correct positions array
+        w = 0; // Counter for correct letters guessed
+
+        /* If letter appears in the word... */
     
         if(parola.indexOf(value) > -1) {
-            c = 0; // Indice generale
+            c = 0; // General purpose index
             for (i=0;i<lettere.length;i++){
                 if(lettere[i] == value) {
                     posizioni[c] = i;
@@ -136,65 +128,68 @@ window.addEventListener("keydown", function(e) {
                 }
             }
         posizioni.forEach(function(i){
-        elems = document.querySelectorAll("[id='underline']");
-        elems[i].setAttribute('data-before', value);
+        elems = document.querySelectorAll("[id='underline']"); // Select all underlines objs
+        elems[i].setAttribute('data-before', value); // Set "content" to the choosen letter
         });
+
+        /* Check if all letters were guessed */
 
         for(i=0;i<lunghezza;i++) {
             var result = getComputedStyle(elems[i], ":before").content;
             if (result!='""')
-                w++;
-            if (w==lunghezza) {
-                document.getElementById("announcer").style.display = "initial";
-                document.getElementById("result").innerHTML = "HAI VINTO!";
-                document.getElementById("result").classList.add("won");
-                document.getElementById("word").innerHTML = "La parola era <span style='color:#2dbe0f'>"+parola+"</span>";
-                document.getElementById("tentativi").innerHTML = "Hai commesso <span style='color:orange'>"+(6-t_r)+"</span> errori!"
-                u_biscotto();
+                w++; // Letter guessed
+            if (w==lunghezza) { // If letter guessed equals to word.length
+                document.getElementById("announcer").style.display = "initial"; // Show the announcer
+                document.getElementById("result").innerHTML = "HAI VINTO!"; // Output "You win"
+                document.getElementById("result").classList.add("won"); // Some colors
+                document.getElementById("word").innerHTML = "La parola era <span style='color:#2dbe0f'>"+parola+"</span>"; // Show word
+                document.getElementById("tentativi").innerHTML = "Hai commesso <span style='color:orange'>"+(6-t_r)+"</span> errori!" // Show errors
+                u_biscotto(); // WIN -> +1 Point
             }
         }
-    } else {
-         t_r--;
+    } else { // If user didn't guess the letter
+         t_r--; // Decrement remained attempts counter
         if (t_r==5)
-            document.getElementById("testa").style.display = "initial";
+            document.getElementById("testa").style.display = "initial"; // Show "head"
         if (t_r==4)
-            document.getElementById("corpo").style.display = "initial";
+            document.getElementById("corpo").style.display = "initial"; // Show "body"
         if (t_r==3)
-            document.getElementById("braccia1").style.display = "initial";
+            document.getElementById("braccia1").style.display = "initial"; // Show first arm
         if (t_r==2)
-            document.getElementById("braccia2").style.display = "initial";
+            document.getElementById("braccia2").style.display = "initial"; // Show second arm
         if (t_r==1)
-            document.getElementById("gamba1").style.display = "initial";
+            document.getElementById("gamba1").style.display = "initial"; // Show first leg
         if (t_r==0) {
-            document.getElementById("gamba2").style.display = "initial";
-            document.getElementById("announcer").style.display = "initial";
-            document.getElementById("result").innerHTML = "HAI PERSO!";
-            document.getElementById("result").classList.add("lost");
-            document.getElementById("word").innerHTML = "La parola era <span style='color:#df0505'>"+parola+"</span>";
-            document.getElementById("tentativi").innerHTML = "Hai commesso <span style='color:#df0505'>6</span> errori!"
-            d_biscotto();
+            document.getElementById("gamba2").style.display = "initial"; // Show second leg
+            document.getElementById("announcer").style.display = "initial"; // Show the announcer
+            document.getElementById("result").innerHTML = "HAI PERSO!"; // Output "You loose" on announcer
+            document.getElementById("result").classList.add("lost"); // Some colors
+            document.getElementById("word").innerHTML = "La parola era <span style='color:#df0505'>"+parola+"</span>"; // Show word
+            document.getElementById("tentativi").innerHTML = "Hai commesso <span style='color:#df0505'>6</span> errori!" // Show errors
+            d_biscotto(); // User loose so points are now "0"
         }
     }}
 
 
 	});
 
-</script>
+/* ON-SCREEN KEYBOARD */
 
-<script type="text/javascript">
 $('button').on('click', function(){
-    event.preventDefault(); // EVITA IL REFRESH
-    var value = $(this).val(); // Lettera cliccata da utente
-    $(this).addClass('error'); // Modifica onclick
-    $(this).removeClass('neutral'); // Modifica onclick
-    var parola = "<?echo $parola?>"; // Parola da trovare
-    var lunghezza = "<?echo $lenght?>"; // Lunghezza parola
-    const lettere = Array.from(parola); // Array di lettere
-    let posizioni = []; // Array posizioni lettere corrette
-    w = 0; // contatore lettere inserite correttamente
+    event.preventDefault(); // Prevent refresh
+    var value = $(this).val(); // Letter clicked
+
+    $(this).addClass('error'); 
+    $(this).removeClass('neutral');
+
+    const lettere = Array.from(parola); // Letters array
+    let posizioni = []; // Correct positions array
+    w = 0; // Guessed letters counter
     
+    /* If letter is in the word */
+
     if(parola.indexOf(value) > -1) {
-        c = 0; // Indice generale
+        c = 0; // General purpose counter
         for (i=0;i<lettere.length;i++){
             if(lettere[i] == value) {
                 posizioni[c] = i;
@@ -242,313 +237,64 @@ $('button').on('click', function(){
         }
     }
 })
-</script>
-<!-- QUI PER NUOVO CODICE HTML -->
 
-</body>
-</html>
+/* WORD CHOOSE AND CONTAINER GENERATION */
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+var t_r = 6;
 
-html {
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
+var url = new URL(window.location.href);
+var difficulty = url.searchParams.get("difficulty");
 
-.underline-container {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    margin-top: 3rem;
-}
-#underline {
-    width: 3rem;
-    height: 4rem;
-    border-bottom: 4px solid black;
-    margin: 5px;
-    font-size: 3rem;
-    color: black;
-    text-align: center;
-}
-#underline::before {
-    content: attr(data-before);
-    font-family: 'Patrick Hand', cursive;
-}
-.tastiera {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    margin-top: 3rem;
-}
-#tasto {
-    margin-left: 0.5rem;
-    margin-top: 0.3rem;
-    width: 2.5rem;
-    height: 3rem;
-    border-radius: 0.3rem;
-    font-family: 'Patrick Hand', cursive;
-    font-size: 1.5rem;
+var parole, count, rand, parola, lettere, lunghezza;
+
+if (difficulty === "easy")
+  parole = loadFile('easy.txt');
+else if (difficulty === "normal")
+  parole = loadFile('normal.txt');
+else
+  parole = loadFile('hard.txt');
+
+count = parole.length;
+rand = getRandomInt(0, count - 1);
+
+parola = parole[rand].toUpperCase();
+lettere = [];
+
+lunghezza = parola.length;
+
+for (var i = 0; i < lunghezza; i++) {
+  lettere[i] = parola.substr(i, 1);
 }
 
-@media screen and (max-width: 768px) {
-    #tasto {
-        width: 2rem;
-        height: 2.5rem;
-        font-size: 1.2rem;
-    }
+var underlineContainer = document.createElement('div');
+underlineContainer.className = 'underline-container';
+
+for (var i = 0; i < lunghezza; i++) {
+  var underline = document.createElement('div');
+  underline.id = 'underline';
+  underlineContainer.appendChild(underline);
 }
 
-.neutral {
-    background-color: rgb(15 15 15 / 5%);
-}
-.error {
-    background-color: rgb(15 15 15 / 15%);
-    pointer-events: none;
-}
-.break {
-    flex-basis: 100%;
-    height: 0;
-}
-.neutral:hover {
-    animation-name: h-tasto;
-    animation-duration: 1.5s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    animation-direction: alternate;
-    cursor: pointer;
-}
-.container {
-    width:20rem;
-    height:20rem;
-    margin: 3rem auto;
-    position: relative;
+document.body.appendChild(underlineContainer);
+
+function loadFile(filename) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', filename, false);
+  xhr.send();
+
+  if (xhr.status === 200) {
+    return xhr.responseText.split('\n').filter(Boolean);
+  } else {
+    throw new Error('Failed to load file: ' + filename);
+  }
 }
 
-#base {
-    width: 6.5rem;
-    height: 0.25rem;
-    background-color: #a5a5a5;
-    position: absolute;
-    bottom: 0.25rem;
-    left: 4rem;
-}
-#palo {
-    width: 0.25rem;
-    height: 17rem;
-    background-color: #a5a5a5;
-    position: absolute;
-    bottom: 0.25rem;
-    left: 7rem;
-}
-#base_u {
-    width: 6rem;
-    height: 0.25rem;
-    background-color: #a5a5a5;
-    position: absolute;
-    left: 7rem;
-    top: 2.5rem;
-}
-#palo_p {
-    width: 0.25rem;
-    height: 3rem;
-    background-color: #a5a5a5;
-    position: absolute;
-    top: 2.5rem;
-    left: 13rem;
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-#testa {
-    width: 2rem;
-    height: 2rem;
-    border: 0.25rem solid black;
-    border-radius: 100%;
-    position: absolute;
-    left: 11.85rem;
-    top: 5.5rem;
-    display: none;
-}
-#corpo {
-    width: 0.25rem;
-    height: 6.5rem;
-    background-color: black;
-    top: 8rem;
-    position: absolute;
-    left: 13rem;
-    display: none;
-}
-#braccia1 {
-    width: 0.25rem;
-    height: 3.5rem;
-    background-color: black;
-    position: absolute;
-    top: 7rem;
-    left: 11.73rem;
-    transform: rotate(315deg);
-    display: none;
-}
-#braccia2 {
-    width: 0.25rem;
-    height: 3.5rem;
-    background-color: black;
-    position: absolute;
-    top: 7rem;
-    left: 14.25rem;
-    transform: rotate(45deg);
-    display: none;
-}
-#gamba1 {
-    width: 0.25rem;
-    height: 3.5rem;
-    background-color: black;
-    position: absolute;
-    top: 13.9rem;
-    left: 11.73rem;
-    transform: rotate(225deg);
-    display: none;
-}
-#gamba2 {
-    width: 0.25rem;
-    height: 3.5rem;
-    background-color: black;
-    position: absolute;
-    top: 13.9rem;
-    left: 14.25rem;
-    transform: rotate(135deg);
-    display: none;
-}
+/* POINTS/STREAKS MANAGEMENT */
 
-#announcer {
-    width: 60%;
-    height: 80%;
-    position: absolute;
-    background-color: rgb(228 228 228);
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2rem;
-    z-index: 1;
-    box-shadow: 0px 0px 40px 5px;
-    border-radius: 15px;
-    display: none;
-    text-align: center;
-    border: 4px solid rgb(200,200,200);
-
-    animation-name: fade-in;
-    animation-duration: 1s;
-    animation-iteration-count: 1;
-    animation-timing-function: linear;
-}
-
-#punteggio {
-    width: 4rem;
-    height: 2.5rem;
-    position: absolute;
-    border: 2px solid black;
-    border-radius: 0 0 20px 20px;
-    border-top: none;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: -3rem;
-    text-align: center;
-    font-family: 'Patrick Hand', cursive;
-    font-size: 1.5rem;
-    background-color: rgb(0 0 0 / 11%);
-}
-
-#show {
-    margin-top: auto;
-}
-
-#result {
-    margin-top: 4rem;
-    font-size: 2.5rem;
-    font-family: 'Patrick Hand', cursive;
-}
-
-.won {
-    color: #2dbe0f;
-}
-
-.lost {
-    color: #df0505;
-}
-
-#word {
-    margin-top: -1rem;
-    font-size: 2rem;
-    font-family: 'Patrick Hand', cursive;
-}
-
-#tentativi {
-    margin-top: -1rem;
-    font-size: 2rem;
-    font-family: 'Patrick Hand', cursive;
-}
-
-#r_button {
-    font-family: 'Patrick Hand', cursive;
-    font-weight: bold;
-    background-color: transparent;
-    border: 3px solid black;
-    border-radius: 0.3rem;
-    font-size: 1.5rem;
-    margin: 1rem;
-    margin-top: 5rem;
-}
-
-#r_button:hover {
-    cursor: pointer;
-
-    animation-name: button_move;
-    animation-duration: 0.75s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-@media screen and (max-width: 768px) {
-    #announcer {
-        width: 80%;
-        height: 60%;
-        margin-top: 4rem;
-    }
-    #result {
-        font-size: 2.5rem;
-    }
-    #word {
-        font-size: 1.5rem;
-    }
-    #tentativi {
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-    }
-    #r_button {
-        margin-top: 0rem;
-    }
-}
-@keyframes h-tasto {
-    from {}
-    to {background-color:black; color:white;}
-}
-
-@keyframes fade-in {
-    from {background-color: rgba(228,228,228,0); transform: translateY(-2rem);}
-    to {background-color: rgba(228,228,228,100);}
-}
-
-@keyframes button_move {
-    from {}
-    to {transform: translateY(-5px)}
-}
-</style>
-
-<script>
 r_biscotto();
 
 document.getElementById("show").innerHTML = p/2;
