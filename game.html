@@ -86,7 +86,7 @@ lettere = [];
 lunghezza = parola.length;
 
 for (var i = 0; i < lunghezza; i++) {
-  lettere[i] = parola.substr(i, 1);
+  lettere[i] = parola.substr(-length);
 }
 
 var underlineContainer = document.createElement('div');
