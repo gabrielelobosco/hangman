@@ -32,7 +32,7 @@
         <br>
         <p id="tentativi"></p>
         <button id="r_button" onclick="location.reload();">CONTINUA!</button>
-        <button id="r_button" onclick="location.href='/index.php'">TORNA AL MENU'</button>
+        <button id="r_button" onclick="location.href='/index.html'">TORNA AL MENU'</button>
     </div>
 
     <!-- Points Div -->
@@ -106,7 +106,7 @@ function loadFile(filename) {
   xhr.send();
 
   if (xhr.status === 200) {
-    return xhr.responseText.split('\n').filter(Boolean);
+    return xhr.responseText.split('\n').map(line => line.replace(/\r$/, '')).filter(Boolean);
   } else {
     throw new Error('Failed to load file: ' + filename);
   }
