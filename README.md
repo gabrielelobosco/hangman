@@ -6,7 +6,7 @@ A personal Web-Project of the HangMan game developed during my freetime.
 <img src="https://socialify.git.ci/LobbyLobs/hangman/image?description=1&font=KoHo&language=1&name=1&owner=1&theme=Dark" alt="hangman" width="640" height="320" />
 
 ## _Demo_
-[hangman]([http://hangedgalilei.ga/](https://gabrielelobosco.github.io/hangman/))
+[Hangman](https://gabrielelobosco.github.io/hangman/)
 ## _Features_
 
 - Three different difficulties
