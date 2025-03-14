@@ -64,6 +64,7 @@
 /* WORD CHOOSE AND CONTAINER GENERATION */
 
 var t_r = 6;
+var w = 0;
 
 var url = new URL(window.location.href);
 var difficulty = url.searchParams.get("difficulty");
@@ -158,74 +159,18 @@ function getRandomInt(min, max) {
 /* PHYSICAL KEYBOARD */
 
 window.addEventListener("keydown", function(e) { // When a key (on keyboard) is pressed
-		var key = `${e.key}`.toUpperCase();
+	var key = `${e.key}`.toUpperCase();
         
-        e.preventDefault(); // Prevent refresh
-        var value = key; // Letter clicked
+    e.preventDefault(); // Prevent refresh
+    var value = key; // Letter clicked
 
-        var element = document.querySelectorAll("button[value="+key+"]"); // Select on-screen button of that value
+    var element = document.querySelectorAll("button[value="+key+"]"); // Select on-screen button of that value
 
-        if (element[0].classList.contains('neutral') == true) { // If it wasn't clicked yet
+    if (element[0].classList.contains('neutral') == true) { // If it wasn't clicked yet
 
         $(element).addClass('error');
         $(element).removeClass('neutral'); 
-
-        const lettere = Array.from(parola); // Letters array
-        let posizioni = []; // Correct positions array
-        w = 0; // Counter for correct letters guessed
-
-        /* If letter appears in the word... */
-    
-        if(parola.indexOf(value) > -1) {
-            c = 0; // General purpose index
-            for (i=0;i<lettere.length;i++){
-                if(lettere[i] == value) {
-                    posizioni[c] = i;
-                    c++;
-                }
-            }
-        posizioni.forEach(function(i){
-        elems = document.querySelectorAll("[id='underline']"); // Select all underlines objs
-        elems[i].setAttribute('data-before', value); // Set "content" to the choosen letter
-        });
-
-        /* Check if all letters were guessed */
-
-        for(i=0;i<lunghezza;i++) {
-            var result = getComputedStyle(elems[i], ":before").content;
-            if (result!='""')
-                w++; // Letter guessed
-            if (w==lunghezza) { // If letter guessed equals to word.length
-                document.getElementById("announcer").style.display = "initial"; // Show the announcer
-                document.getElementById("result").innerHTML = "HAI VINTO!"; // Output "You win"
-                document.getElementById("result").classList.add("won"); // Some colors
-                document.getElementById("word").innerHTML = "La parola era <span style='color:#2dbe0f'>"+parola+"</span>"; // Show word
-                document.getElementById("tentativi").innerHTML = "Hai commesso <span style='color:orange'>"+(6-t_r)+"</span> errori!" // Show errors
-                u_biscotto(); // WIN -> +1 Point
-            }
-        }
-    } else { // If user didn't guess the letter
-         t_r--; // Decrement remained attempts counter
-        if (t_r==5)
-            document.getElementById("testa").style.display = "initial"; // Show "head"
-        if (t_r==4)
-            document.getElementById("corpo").style.display = "initial"; // Show "body"
-        if (t_r==3)
-            document.getElementById("braccia1").style.display = "initial"; // Show first arm
-        if (t_r==2)
-            document.getElementById("braccia2").style.display = "initial"; // Show second arm
-        if (t_r==1)
-            document.getElementById("gamba1").style.display = "initial"; // Show first leg
-        if (t_r==0) {
-            document.getElementById("gamba2").style.display = "initial"; // Show second leg
-            document.getElementById("announcer").style.display = "initial"; // Show the announcer
-            document.getElementById("result").innerHTML = "HAI PERSO!"; // Output "You loose" on announcer
-            document.getElementById("result").classList.add("lost"); // Some colors
-            document.getElementById("word").innerHTML = "La parola era <span style='color:#df0505'>"+parola+"</span>"; // Show word
-            document.getElementById("tentativi").innerHTML = "Hai commesso <span style='color:#df0505'>6</span> errori!" // Show errors
-            d_biscotto(); // User loose so points are now "0"
-        }
-    }
+        gameLogic(value);
     }
 });
 
@@ -237,62 +182,61 @@ $('button').on('click', function(){
 
     $(this).addClass('error'); 
     $(this).removeClass('neutral');
+    gameLogic(value);
+});
 
-    const lettere = Array.from(parola); // Letters array
-    let posizioni = []; // Correct positions array
-    w = 0; // Guessed letters counter
-    
-    /* If letter is in the word */
+/* FUNZIONE LOGICA */
+function gameLogic(value) {
+    const lettere = Array.from(parola); // Array che contiene le lettere della parola
+    let posizioni = []; // Array per le posizioni corrette
 
+    // Controlla se la lettera si trova nella parola
     if(parola.indexOf(value) > -1) {
-        c = 0; // General purpose counter
-        for (i=0;i<lettere.length;i++){
+        for (i=0,c=0;i<lettere.length;i++){
             if(lettere[i] == value) {
                 posizioni[c] = i;
                 c++;
+                w++;
             }
         }
         posizioni.forEach(function(i){
-        elems = document.querySelectorAll("[id='underline']");
-        elems[i].setAttribute('data-before', value);
+            elems = document.querySelectorAll("[id='underline']"); // Select all underlines objs
+            elems[i].setAttribute('data-before', value); // Set "content" to the choosen letter
         });
 
-        for(i=0;i<lunghezza;i++) {
-            var result = getComputedStyle(elems[i], ":before").content;
-            if (result!='""')
-                w++;
-            if (w==lunghezza) {
-                document.getElementById("announcer").style.display = "initial";
-                document.getElementById("result").innerHTML = "HAI VINTO!";
-                document.getElementById("result").classList.add("won");
-                document.getElementById("word").innerHTML = "La parola era <span style='color:#2dbe0f'>"+parola+"</span>";
-                document.getElementById("tentativi").innerHTML = "Hai commesso <span style='color:orange'>"+(6-t_r)+"</span> errori!"
-                u_biscotto();
+        /* Check if all letters were guessed */
+                console.log(w);
+        if (w==lunghezza) { // If letter guessed equals to word.length
+            document.getElementById("announcer").style.display = "initial"; // Show the announcer
+            document.getElementById("result").innerHTML = "HAI VINTO!"; // Output "You win"
+            document.getElementById("result").classList.add("won"); // Some colors
+            document.getElementById("word").innerHTML = "La parola era <span style='color:#2dbe0f'>"+parola+"</span>"; // Show word
+            document.getElementById("tentativi").innerHTML = "Hai commesso <span style='color:orange'>"+(6-t_r)+"</span> errori!" // Show errors
+            u_biscotto(); // WIN -> +1 Point
+            }
+        } else { // If user didn't guess the letter
+            t_r--; // Decrement remained attempts counter
+            if (t_r==5)
+                document.getElementById("testa").style.display = "initial"; // Show "head"
+            if (t_r==4)
+                document.getElementById("corpo").style.display = "initial"; // Show "body"
+            if (t_r==3)
+                document.getElementById("braccia1").style.display = "initial"; // Show first arm
+            if (t_r==2)
+                document.getElementById("braccia2").style.display = "initial"; // Show second arm
+            if (t_r==1)
+                document.getElementById("gamba1").style.display = "initial"; // Show first leg
+            if (t_r==0) {
+                document.getElementById("gamba2").style.display = "initial"; // Show second leg
+                document.getElementById("announcer").style.display = "initial"; // Show the announcer
+                document.getElementById("result").innerHTML = "HAI PERSO!"; // Output "You loose" on announcer
+                document.getElementById("result").classList.add("lost"); // Some colors
+                document.getElementById("word").innerHTML = "La parola era <span style='color:#df0505'>"+parola+"</span>"; // Show word
+                document.getElementById("tentativi").innerHTML = "Hai commesso <span style='color:#df0505'>6</span> errori!" // Show errors
+                d_biscotto(); // User loose so points are now "0"
             }
         }
-    } else {
-         t_r--;
-        if (t_r==5)
-            document.getElementById("testa").style.display = "initial";
-        if (t_r==4)
-            document.getElementById("corpo").style.display = "initial";
-        if (t_r==3)
-            document.getElementById("braccia1").style.display = "initial";
-        if (t_r==2)
-            document.getElementById("braccia2").style.display = "initial";
-        if (t_r==1)
-            document.getElementById("gamba1").style.display = "initial";
-        if (t_r==0) {
-            document.getElementById("gamba2").style.display = "initial";
-            document.getElementById("announcer").style.display = "initial";
-            document.getElementById("result").innerHTML = "HAI PERSO!";
-            document.getElementById("result").classList.add("lost");
-            document.getElementById("word").innerHTML = "La parola era <span style='color:#df0505'>"+parola+"</span>";
-            document.getElementById("tentativi").innerHTML = "Hai commesso <span style='color:#df0505'>6</span> errori!"
-            d_biscotto();
-        }
     }
-});
 
 /* POINTS/STREAKS MANAGEMENT */
 
